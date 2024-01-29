@@ -1,4 +1,5 @@
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -18,7 +19,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+DEFAULT_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -26,6 +27,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+CUSTOM_APPS = [
+    'rest_framework',
+    'django.contrib.gis',
+]
+
+INSTALLED_APPS = DEFAULT_APPS + CUSTOM_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,8 +71,12 @@ WSGI_APPLICATION = 'morni.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': config('DB_NAME', default='morni'),
+        'USER': config('DB_USER', default='morni'),
+        'PASSWORD': config('DB_PASS', default='pass'),
+        'HOST': config('DB_HOST', default='server'),
+        'PORT': config('DB_PORT', default='5432'),
     }
 }
 
