@@ -14,8 +14,7 @@ SECRET_KEY = '26&1kbr$kg(zzf@h1ps_39@uwb2m)^ikt)t8x6-@brfnb41gk('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -33,7 +32,16 @@ CUSTOM_APPS = [
     'django.contrib.gis',
 ]
 
-INSTALLED_APPS = DEFAULT_APPS + CUSTOM_APPS
+MORNI_APPS = [
+    'providers',
+    'services',
+]
+
+INSTALLED_APPS = DEFAULT_APPS + CUSTOM_APPS + MORNI_APPS
+
+REST_FRAMEWORK = {
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning'
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
