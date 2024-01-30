@@ -1,16 +1,5 @@
-version: "3"
+version: "1"
 services:
-  app:
-    build:
-      context: .
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./.:/morni
-    command: python manage.py runserver 0.0.0.0:8000
-    depends_on:
-      - db
-      - redis
   db:
     image: postgis/postgis:16-3.4
     environment:
@@ -19,11 +8,25 @@ services:
       POSTGRES_PASSWORD: morni
     volumes:
       - pgdata:/var/lib/posgresql/data
+
   redis:
     image: redis
     container_name: redis
     expose:
       - "6379"
+
+  app:
+    image: morni
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    volumes:
+      - ./:/morni
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
+      - redis
 
 volumes:
   pgdata:

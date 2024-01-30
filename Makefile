@@ -9,7 +9,7 @@ help:
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
 image:         ## Build the docker image
-	docker build -t current -t morni .
+	docker build --no-cache -t current -t morni .
 
 dev-run:       ## Run app locally
 	docker-compose up --force-recreate

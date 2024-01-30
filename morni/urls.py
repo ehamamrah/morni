@@ -1,8 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
 from services import urls as services_urls
+from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('services/', include(services_urls)),
+    path('api/services/', include(services_urls)),
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]

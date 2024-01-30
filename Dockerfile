@@ -1,6 +1,6 @@
 FROM python:3.12
-ENV PYTHONDONTWRITEBYTECODE 1
 
+COPY . /morni
 WORKDIR /morni
 
 RUN apt-get update && apt-get install -y \
@@ -9,5 +9,5 @@ RUN apt-get update && apt-get install -y \
     gdal-bin \
     postgis
 
-COPY . /morni
-RUN pip3 install -r requirements.txt
+RUN pip3 install --upgrade pip
+RUN pip3 install --no-cache-dir -r requirements.txt

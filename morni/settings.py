@@ -1,5 +1,6 @@
 from pathlib import Path
 from decouple import config
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -30,6 +31,7 @@ DEFAULT_APPS = [
 CUSTOM_APPS = [
     'rest_framework',
     'django.contrib.gis',
+    'rest_framework_simplejwt',
 ]
 
 MORNI_APPS = [
@@ -40,7 +42,18 @@ MORNI_APPS = [
 INSTALLED_APPS = DEFAULT_APPS + CUSTOM_APPS + MORNI_APPS
 
 REST_FRAMEWORK = {
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning'
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
 MIDDLEWARE = [
