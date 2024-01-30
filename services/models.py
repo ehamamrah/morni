@@ -25,12 +25,24 @@ class Service(models.Model):
 
 
 class ServiceRequest(models.Model):
+    STATUSES_DICT = {
+        "pending": "pending",
+        "accepted": "accepted",
+        "rejected": "rejected",
+        "canceled": "canceled",
+        "completed": "completed"
+    }
+
     service = models.ForeignKey(Service, on_delete = models.CASCADE)
     provider = models.ForeignKey("providers.Provider", on_delete = models.CASCADE)
     mobile_number = models.CharField(max_length = 15, blank = False, null = False)
     timestamp = models.DateTimeField(auto_now_add = True, auto_now = False, blank = True)
     longitude = models.FloatField(blank = False, null = False)
     latitude = models.FloatField(blank = False, null = False)
+    status = models.CharField(max_length = 15, blank = False, null = False, default = STATUSES_DICT.get('pending'))
 
     def __str__(self):
         return self.mobile_number
+
+    def get_status_display(self):
+        return self.STATUSES_DICT.get(self.status).capitalize()

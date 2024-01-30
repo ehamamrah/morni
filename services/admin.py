@@ -8,4 +8,8 @@ class ServiceAdmin(GISModelAdmin):
 
 @admin.register(ServiceRequest)
 class ServiceRequestAdmin(admin.ModelAdmin):
-    list_display = ('service', 'provider', 'mobile_number', 'timestamp')
+    def get_status(self, obj):
+        return obj.get_status_display()
+    get_status.short_description = 'Status'
+
+    list_display = ('service', 'provider', 'mobile_number', 'get_status', 'timestamp')
