@@ -17,12 +17,6 @@ dev-run:       ## Run app locally
 dev-restart:       ## Run app locally
 	docker-compose restart
 
-celery-restart:       ## Run app locally
-	docker-compose restart celery
-
-dev-compose-state:       ## Listing app containers
-	docker-compose ps
-
 dev-logs:       ## Run app locally
 	docker-compose logs -f --tail=100 app
 

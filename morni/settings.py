@@ -102,7 +102,7 @@ DATABASES = {
         'NAME': config('DB_NAME', default='morni'),
         'USER': config('DB_USER', default='morni'),
         'PASSWORD': config('DB_PASS', default='pass'),
-        'HOST': config('DB_HOST', default='server'),
+        'HOST': config('DB_HOST', default='db'),
         'PORT': config('DB_PORT', default='5432'),
     }
 }
