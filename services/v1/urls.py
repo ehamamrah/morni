@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from services.v1.views import (
     ServiceListApiView,
     ServiceRequestApiView
